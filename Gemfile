@@ -45,6 +45,9 @@ group :development, :test do
   gem 'capybara'
 end
 
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'thin', group: :development
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
