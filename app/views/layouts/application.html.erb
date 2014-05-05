@@ -26,7 +26,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li> <%= link_to "Topics", topics_path %> </li>
-            <li> <%= link_to "Bookmarks", bookmarks_path %> </li>
+            <li> <%= link_to "YMarks", bookmarks_path %> </li>
+            <% if current_user %>
+              <li> <%= link_to "My YMarks", user_path(current_user) %> </li>
+            <% end %>
           </ul>
 
           <!-- USER SEARCH -->

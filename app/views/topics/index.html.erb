@@ -1,7 +1,7 @@
 <h1>Topics</h1>
 <% Topic.all.each do |topic| %>
   <p>
-    #<%= topic.title %><br />
+    <h3>#<%= topic.title %></h3>
     <% topic.bookmarks.each do |bookmark| %>
       <p> <%= link_to bookmark.title, bookmark.url %></p>
     <% end %>

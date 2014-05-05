@@ -1,0 +1,14 @@
+<h1>
+  <% if @user.name %>
+    <%= @user.name %>
+  <% else %>
+    <%= @user.email %>
+  <% end %>
+</h1>
+
+<% @user.topics.each do |topic| %>
+  <h3>#<%= topic.title %></h3>
+    <% topic.bookmarks.each do |bookmark| %>
+      <p><%= link_to bookmark.title, bookmark.url %></p>
+    <% end %>
+<% end %>
