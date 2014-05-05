@@ -1,0 +1,7 @@
+<h1>Bookmarks</h1>
+<% Bookmark.all.each do |bookmark| %>
+  <p>
+    <%= bookmark.title %><br />
+    <%= link_to bookmark.url, bookmark.url %>
+  </p>
+<% end %>
