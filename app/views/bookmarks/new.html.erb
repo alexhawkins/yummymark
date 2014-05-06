@@ -1,0 +1,16 @@
+<%= form_for [@bookmark] do |f| %>
+ <div class="form-group">
+  <%= f.label :title %>
+  <%= f.text_field :title, class: 'form-control', placeholder: "Ask your question..." %>
+</div>
+ <div class="form-group">
+  <%= f.label :url %>
+  <%= f.text_area :url, class: 'form-control', placeholder: "Explain your question further..." %>
+</div>
+
+ <div class="form-group">
+  <%= f.submit "Save",  class: 'btn btn-success'%>
+</div>
+
+<%= params.inspect %>
+<% end %>
