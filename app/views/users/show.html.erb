@@ -6,9 +6,11 @@
   <% end %>
 </h1>
 
-<% @user.topics.each do |topic| %>
-  <h3>#<%= topic.title %></h3>
-    <% topic.bookmarks.each do |bookmark| %>
-      <p><%= link_to bookmark.title, bookmark.url %></p>
-    <% end %>
-<% end %>
+
+<% @user.bookmarks.each do |bookmark| %>
+  <p><%= link_to bookmark.title, bookmark.url %><br />
+   <% bookmark.topics.each do |topic| %>
+    #<%= topic.title %>, 
+  <% end %>
+</p>
+<% end %>  
