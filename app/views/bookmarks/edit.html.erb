@@ -9,7 +9,12 @@
       </div>
 
       <div class="form-group">
-        <h3>HashTags</h3>
+        <%= label_tag "Update the existing HashTags for this bookmark" %>
+        <%= text_field_tag "topic_field", nil , class: 'form-control', placeholder: "##{@bookmark.topics.map { |topic| topic.title }.join("  #")}" %>
+      </div>
+
+      <div class="form-group">
+        <h4 class="page-header">Select your HashTags the old-fashioned way</h4>
         <% Topic.all.each do |topic| %>
           <%= f.label "##{topic.title}" %>
           <%= check_box_tag "bookmark[topic_ids][]", topic.id, @bookmark.topic_ids.include?(topic.id) %><br />
@@ -20,4 +25,5 @@
         <%= f.submit "Save", class: 'btn btn-success' %>
       </div>
 
+      <%= params.inspect %>
 <% end %>

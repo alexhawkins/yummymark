@@ -1,12 +1,20 @@
 <h1>
   <% if @user.name %>
-    <%= @user.name %>
+    <h2 class="page-header"><%= @user.name %>'s YMarks</h2>
   <% else %>
     <%= @user.email %>
   <% end %>
 </h1>
 
-
+<% @user.topics.each do |topic| %>
+  <h3>#<%= topic.title %></h3>
+    <% topic.bookmarks.each do |bookmark| %>
+      <% if @user.bookmarks.includes(bookmark) %>
+        <%= link_to bookmark.title, bookmark.url %><br />
+      <% end %>
+    <% end %>
+<% end %>
+<h1>DOOSH</h1>
 <% @user.bookmarks.each do |bookmark| %>
   <p><%= link_to bookmark.title, bookmark.url %><br />
    <% bookmark.topics.each do |topic| %>

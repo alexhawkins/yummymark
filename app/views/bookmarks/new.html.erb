@@ -8,8 +8,14 @@
   <%= f.text_area :url, class: 'form-control', placeholder: "What is the url of your YMark?" %>
 </div>
 
+
+<div class="form-group">
+  <%= label_tag "Create Your own HashTags for this bookmark" %>
+  <%= text_field_tag "topic_field", @bookmark.topics.join(" "), class: 'form-control', placeholder: 'Enter a space between each HashTag. Avoid using symbols if possilbe.' %>
+</div>
+
  <div class="form-group">
-      <h3>HashTags</h3>
+      <h3 class="page-header">OR select from already existing HashTags</h3>
       <% Topic.all.each do |topic| %>
         <%= f.label "##{topic.title}" %>
         <%= check_box_tag "bookmark[topic_ids][]", topic.id, @bookmark.topic_ids.include?(topic.id) %><br />

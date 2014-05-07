@@ -10,6 +10,17 @@ class BookmarksController < ApplicationController
   def create
     params[:bookmark][:topic_ids] ||= []
     @bookmark = current_user.bookmarks.build(bookmark_params)
+    #get the user input from the topic field and split the words into an array called topics
+    add_these_topics = params[:topic_field].gsub(/[^a-zA-Z]/, ' ').downcase.split
+    #now iterate through each topic in our array and associate them with the bookmark we're creating
+      add_these_topics.each do |topic_title|
+        #find or create by find our title in our Topics class if it exists, otherwise it creates the topic
+        topic = Topic.find_or_create_by_title(topic_title)
+        #we then associate the topics with our bookmark
+        @bookmark.topics << topic
+        #associate topics with user
+        current_user.topics << topic
+      end
 
     if @bookmark.save
         flash[:notice] = "Bookmark was saved."
@@ -18,6 +29,8 @@ class BookmarksController < ApplicationController
         flash[:error] = "There was an error saving the answer. Please try again."
         render :new
     end
+
+
   end
 
   def edit
