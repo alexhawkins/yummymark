@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hey, <%= @user.name %>! </h1>
+    <p>
+      You have successfully created a new bookmark on Yummmarks.com,
+      Your bookmark title is <i>"<%= @bookmark.title %>"</i> and was added to the following topics:<br>
+    </p>  
+    <p>
+      <% @bookmark.topics.each do |topic|%>
+        <strong>#<%= topic.title %></strong>
+      <% end %>
+    </p>
+    <p>
+      Your bookmark url is <%= @bookmark.url %>
+    </p>
+    <p>
+      Click here to edit your bookmark: <%= @url %>
+    </p>
+    <p>Thanks for using Yummymarks and have a great day!</p>
+  </body>
+</html>

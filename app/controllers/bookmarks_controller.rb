@@ -14,15 +14,19 @@ class BookmarksController < ApplicationController
     add_these_topics = params[:topic_field].gsub(/[^a-zA-Z]/, ' ').downcase.split
     #now iterate through each topic in our array and associate them with the bookmark we're creating
       add_these_topics.each do |topic_title|
-        #find or create by find our title in our Topics class if it exists, otherwise it creates the topic
+        #find our title in our Topics class if it exists, otherwise create the topic
         topic = Topic.find_or_create_by_title(topic_title)
         #we then associate the topics with our bookmark
         @bookmark.topics << topic
-        #associate topics with user
-        current_user.topics << topic
+        #check to make sure this topic has not already been associated with this user
+        unless current_user.topics.include?(topic)
+          #associate topics with user 
+          current_user.topics << topic
+        end
       end
 
     if @bookmark.save
+        UserMailer.bookmark_created_email(current_user, @bookmark).deliver
         flash[:notice] = "Bookmark was saved."
         redirect_to topics_path
     else

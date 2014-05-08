@@ -6,4 +6,5 @@ Yummymark::Application.routes.draw do
  resources :bookmarks
 
  root to: 'bookmarks#index'
+ post :incoming, to: 'incoming#create'
 end

@@ -1,4 +1,3 @@
-=begin
 ActionMailer::Base.smtp_settings = {
   port:              587, 
   address:           'smtp.mailgun.org',
@@ -29,4 +28,3 @@ end
 if Rails.env.development?
   ActionMailer::Base.register_interceptor(DevelopmentMailInterceptor)
 end
-=end

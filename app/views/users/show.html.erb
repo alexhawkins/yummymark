@@ -1,24 +1,25 @@
-<h1>
+<div class="page-header"><h2>
   <% if @user.name %>
-    <h2 class="page-header"><%= @user.name %>'s YMarks</h2>
+   <%= @user.name %>'s YMarks
   <% else %>
     <%= @user.email %>
   <% end %>
-</h1>
+  </h2>
+</div>
 
 <% @user.topics.each do |topic| %>
   <h3>#<%= topic.title %></h3>
     <% topic.bookmarks.each do |bookmark| %>
-      <% if @user.bookmarks.includes(bookmark) %>
+    <!-- Check to see if this bookmark has been associated with the current user.
+         We need to check this because other users may have created topics with
+         the same name. Topics are not User specific whereas Bookmarks are. For ex:
+         Joe may have added a bookmark to a hash topic called Treats. Bill may have also added
+         a seperate bookmark to the same Treats hash topic. Thus, if we were to retrieve all
+         the bookmarks in the Treats hash, we would be getting bookmarks for both Joe
+         and Bill. We only want Joes in this case. So we must also check for a user bookmark
+         association -->
+      <% if @user.bookmarks.include?(bookmark) %>
         <%= link_to bookmark.title, bookmark.url %><br />
       <% end %>
     <% end %>
 <% end %>
-<h1>DOOSH</h1>
-<% @user.bookmarks.each do |bookmark| %>
-  <p><%= link_to bookmark.title, bookmark.url %><br />
-   <% bookmark.topics.each do |topic| %>
-    #<%= topic.title %>, 
-  <% end %>
-</p>
-<% end %>  
