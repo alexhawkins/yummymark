@@ -23,7 +23,7 @@ class IncomingController < ApplicationController
     @bookmark.url = body_url
 
     #@bookmark.title 
-    #get the user input from the topic field and split the words into an array called topics
+    #get the hash topics from the subject and split the words into an array 
     add_these_topics = @subject.gsub(/[^a-zA-Z]/, ' ').downcase.split
     #now iterate through each topic in our array and associate them with the bookmark we're creating
       add_these_topics.each do |topic_title|
@@ -33,10 +33,11 @@ class IncomingController < ApplicationController
         @bookmark.topics << topic
         #check to make sure this topic has not already been associated with this user
         unless @user.topics.include?(topic)
-          #associate topics with user 
+          #associate topics with user accordingly
           @user.topics << topic
         end
       end
+      
     if @bookmark.save
         flash[:notice] = "Bookmark was saved."
         redirect_to topics_path

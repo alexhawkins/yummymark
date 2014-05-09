@@ -16,6 +16,10 @@ class UserMailer < ActionMailer::Base
     mail(to: @user.email, subject:  'NEW BOOKMARK: ' + @bookmark.title)
   end
 
+  def you_need_to_sign_up(@sender)
+    @url = 'http://yummymark.herokuapp.com' + new_user_registration_path
+    mail(to: @sender, subject: 'ERROR POSTING BOOKMARK')
+  end
 end
 
 
