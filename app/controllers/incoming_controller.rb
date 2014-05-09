@@ -8,11 +8,11 @@ class IncomingController < ApplicationController
     # to get a sense of what you're dealing with.
     puts "INCOMING PARAMS HERE: #{params}"
 
-    @sender  = params['from']
+    @sender = params['from']
     #@email = params[].gsub(/[<>]/, '')) 
     @subject = params['subject']
     @stripped_text = params['stripped-text']
-    #@user = User.find_by_email(@sender)
+    @user = User.find_or_create_by_email(@sender)
     #if @user
       @bookmark = Bookmark.new
       body_text = @stripped_text.split('#')
@@ -39,7 +39,7 @@ class IncomingController < ApplicationController
           end
         end
     #else
-     #   UserMailer.you_need_to_sign_up(@sender).deliver
+      UserMailer.you_need_to_sign_up(@sender).deliver
    # end
 
     if @bookmark.save
