@@ -10,12 +10,18 @@ class IncomingController < ApplicationController
 
     @sender  = params['from']
     @subject = params['subject'] 
-    @body_url = params['stripped-text']
+    @stripped_text = params['stripped-text']
 
     @user = User.find_or_create_by_email(@sender)
     @bookmark = Bookmark.new
+    body_text = @body_all.split('#')
+    body_title = body_text[1].strip
+    body_url = body_text.last.strip
+   
     @user.bookmarks << @bookmark
-    @bookmark.url = @body_url
+    @bookmark.title = body_title
+    @bookmark.url = body_url
+
     #@bookmark.title 
     #get the user input from the topic field and split the words into an array called topics
     add_these_topics = @subject.gsub(/[^a-zA-Z]/, ' ').downcase.split
