@@ -14,7 +14,7 @@ class IncomingController < ApplicationController
 
     @user = User.find_or_create_by_email(@sender)
     @bookmark = Bookmark.new
-    body_text = @body_all.split('#')
+    body_text = @stripped_text.split('#')
     body_title = body_text[1].strip
     body_url = body_text.last.strip
    
