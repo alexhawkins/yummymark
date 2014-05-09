@@ -5,5 +5,10 @@ class TopicsController < ApplicationController
 
   def create
   end
+
+  def show
+    @topic = Topic.find(params[:id])
+    @bookmarks = @topic.bookmarks.includes(:user)
+  end
   
 end

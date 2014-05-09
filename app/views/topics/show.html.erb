@@ -1,0 +1,6 @@
+<div class="jumbotron"> 
+  <h1 class="hash-topic topic-show"><strong><%= "##{@topic.title}" %></strong></h1>
+  <% @bookmarks.each do |bookmark| %>
+    <p><%= link_to bookmark.title, bookmark.url %></p>
+  <% end %>
+</div>
