@@ -4,7 +4,13 @@
     <p>
       <h1 class="hash-topic topic-index"><strong><%= link_to "##{topic.title}", topic_path(topic) %></strong></h1>
         <% topic.bookmarks.each do |bookmark| %>
-          <p> <%= link_to bookmark.title, bookmark.url %></p>
+          <p> 
+            <%= link_to bookmark.title, bookmark.url %> 
+            <% if current_user && current_user.bookmarks.include?(bookmark) %>
+              <%= link_to "Edit", edit_bookmark_path(bookmark),  class: 'label label-success'%> | 
+              <%= link_to "Delete", bookmark_path(bookmark), method: :delete, class: 'label label-danger' %>
+            <% end %>
+          </p>
         <% end %>
     </p>
     <% end %>

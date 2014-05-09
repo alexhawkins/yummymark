@@ -56,6 +56,18 @@ class BookmarksController < ApplicationController
     end
   end
 
+  def destroy 
+    @bookmark = Bookmark.find(params[:id])
+    title = @bookmark.title
+    if @bookmark.destroy
+      flash[:notice] = "\"#{title}\" was deleted successfully."
+      redirect_to :back
+    else
+      flash[:error] = "There was an error deleting the post."
+      redirect_to :back
+    end
+  end
+
   private
 
   def bookmark_params

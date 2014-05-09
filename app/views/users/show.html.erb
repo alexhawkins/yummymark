@@ -34,8 +34,11 @@
                the bookmarks in the Treats hash, we would be getting bookmarks for both Joe
                and Bill. We only want Joes in this case. So we must also check for a user bookmark
                association -->
-            <% if @user.bookmarks.include?(bookmark) %>
-              <p> <%= link_to bookmark.title, bookmark.url %></p>
+            <% if current_user && @user.bookmarks.include?(bookmark) %>
+              <p> <%= link_to bookmark.title, bookmark.url %>
+                <%= link_to "Edit", edit_bookmark_path(bookmark),  class: 'label label-success'%> | 
+                <%= link_to "Delete", bookmark_path(bookmark), method: :delete, class: 'label label-danger' %>
+              </p>
             <% end %>
           <% end %>
       <% end %>
