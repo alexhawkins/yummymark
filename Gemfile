@@ -51,6 +51,7 @@ gem 'devise'
 gem 'figaro'
 gem 'omniauth-facebook'
 gem 'embedly'
+gem 'jwt', '0.1.11'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
