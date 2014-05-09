@@ -8,14 +8,13 @@ class IncomingController < ApplicationController
     # to get a sense of what you're dealing with.
     puts "INCOMING PARAMS HERE: #{params}"
 
-    # You put the message-splitting and business
-    # magic here.
     @sender  = params['from']
     @subject = params['subject'] 
     @body_url = params['stripped-text']
 
+    @user = User.find_or_create_by_email(@sender)
     #@bookmark = Bookmark.new
-    @bookmark = current_user.bookmarks.build(bookmark_params)
+    @bookmark = @user.bookmarks.build(bookmark_params)
     @bookmark.url = @body_url
     #@bookmark.title 
     #get the user input from the topic field and split the words into an array called topics
@@ -27,9 +26,9 @@ class IncomingController < ApplicationController
         #we then associate the topics with our bookmark
         @bookmark.topics << topic
         #check to make sure this topic has not already been associated with this user
-        unless current_user.topics.include?(topic)
+        unless @user.topics.include?(topic)
           #associate topics with user 
-          current_user.topics << topic
+          @user.topics << topic
         end
       end
     if @bookmark.save
