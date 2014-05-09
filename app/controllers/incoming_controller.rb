@@ -37,6 +37,7 @@ class IncomingController < ApplicationController
             @user.topics << topic
           end
         end
+      @bookmark.save
       UserMailer.bookmark_created_email(@user, @bookmark).deliver
     else
       UserMailer.you_need_to_sign_up(@sender).deliver
