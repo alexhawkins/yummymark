@@ -10,15 +10,16 @@ class IncomingController < ApplicationController
 
     # You put the message-splitting and business
     # magic here.
-    sender  = params['from']
-    subject = params['subject'] 
-    body_url = params["stripped-text"]
+    @sender  = params['from']
+    @subject = params['subject'] 
+    @body_url = params['stripped-text']
 
-    @bookmark = Bookmark.new
+    #@bookmark = Bookmark.new
     @bookmark = current_user.bookmarks.build(bookmark_params)
-    @bookmark.url = body_url
+    @bookmark.url = @body_url
+    #@bookmark.title 
     #get the user input from the topic field and split the words into an array called topics
-    add_these_topics = subject.gsub(/[^a-zA-Z]/, ' ').downcase.split
+    add_these_topics = @subject.gsub(/[^a-zA-Z]/, ' ').downcase.split
     #now iterate through each topic in our array and associate them with the bookmark we're creating
       add_these_topics.each do |topic_title|
         #find our title in our Topics class if it exists, otherwise create the topic
@@ -31,7 +32,13 @@ class IncomingController < ApplicationController
           current_user.topics << topic
         end
       end
-
+    if @bookmark.save
+        flash[:notice] = "Bookmark was saved."
+        redirect_to topics_path
+    else
+        flash[:error] = "There was an error saving the answer. Please try again."
+        render :new
+    end
 
     # Assuming all went well. 
     head 200
