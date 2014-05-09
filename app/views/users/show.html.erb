@@ -22,10 +22,30 @@
 <!-- Tab panes -->
   <div class="tab-content">
       <!--User Bookmarks -->
-    <div class="tab-pane active" id="bookmarks">  
+    <div class="tab-pane active" id="bookmarks"> 
+      <!-- Find all topics associated with this User and iterate through each instance of a topic --> 
       <% @user.topics.each do |topic| %>
-        <h1 class="hash-topic user-show"><strong><%= link_to "##{topic.title}", topic_path(topic) %></strong></h1>
-          <% topic.bookmarks.each do |bookmark| %>
+        <!-- set has_bookmarks variable to false -->
+        <% has_bookmarks = false %>
+        <!-- Now find all the bookmarks in this particular topic -->
+        <% topic.bookmarks.each do |bookmark| %>
+          <!-- if this topic instance has any bookmarks assoiated with it and the user
+          also has the same bookmark associated with it in the database, set
+          our has_bookmarks variable to true. 
+
+          This will allow us to only show User topics which have bookmarks for a given User.
+          A user may have created a bookmark hash topic but then deleted the associated bookmark
+          at some point. 
+          The topic category will not have been deleted as other users may have also associated bookmarks with this particular hash topic. So instead of deleting the hash, we just won't show it.
+          -->
+          <% has_bookmarks = true if @user.bookmarks.include?(bookmark) %>
+        <% end %>
+        <!-- show the Hash topic if there are relevant User bookmarks to show -->
+        <% if has_bookmarks %>
+          <h1 class="hash-topic user-show"><strong><%= link_to "##{topic.title}", topic_path(topic) %></strong></h1>
+        <% end %>
+        <!-- note that we are still in the Topic iteration at this point -->
+        <% topic.bookmarks.each do |bookmark| %>
           <!-- Check to see if this bookmark has been associated with the current user.
                We need to check this because other users may have created topics with
                the same name. Topics are not User specific whereas Bookmarks are. For ex:
