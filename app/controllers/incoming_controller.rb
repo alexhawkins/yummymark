@@ -14,10 +14,7 @@ class IncomingController < ApplicationController
     subject = params['subject'] 
     body_url = params["stripped-text"]
 
-    @bookmark.topics << subject
-    current_user.topics << subject 
-
-    @boookmark = Bookmark.new
+    @bookmark = Bookmark.new
     @bookmark = current_user.bookmarks.build(bookmark_params)
     @bookmark.url = body_url
     #get the user input from the topic field and split the words into an array called topics
