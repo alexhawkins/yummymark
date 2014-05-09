@@ -37,16 +37,9 @@ class IncomingController < ApplicationController
             @user.topics << topic
           end
         end
+      UserMailer.bookmark_created_email(@user, @bookmark).deliver
     else
       UserMailer.you_need_to_sign_up(@sender).deliver
-    end
-
-    if @bookmark.save
-        flash[:notice] = "Bookmark was saved."
-        redirect_to topics_path
-    else
-        flash[:error] = "There was an error saving the answer. Please try again."
-        render :new
     end
 
     # Assuming all went well. 
