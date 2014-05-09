@@ -9,10 +9,11 @@ class IncomingController < ApplicationController
     puts "INCOMING PARAMS HERE: #{params}"
 
     @sender  = params['from']
-    @subject = params['subject'] 
+    #@email = params[].gsub(/[<>]/, '')) 
+    @subject = params['subject']
     @stripped_text = params['stripped-text']
-    @user = User.find_by_email(@sender)
-    if @user
+    #@user = User.find_by_email(@sender)
+    #if @user
       @bookmark = Bookmark.new
       body_text = @stripped_text.split('#')
       body_title = body_text[1].strip
@@ -37,9 +38,9 @@ class IncomingController < ApplicationController
             @user.topics << topic
           end
         end
-    else
-        UserMailer.you_need_to_sign_up(@sender).deliver
-    end
+    #else
+     #   UserMailer.you_need_to_sign_up(@sender).deliver
+   # end
 
     if @bookmark.save
         flash[:notice] = "Bookmark was saved."
