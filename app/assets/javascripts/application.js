@@ -14,7 +14,3 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
-
-$('.embed').embedly({
-    key: 'ca5f0c614f2d4bbb9eca296013d3190c',
-    query: {maxwidth:530} });

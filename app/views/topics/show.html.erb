@@ -1,12 +1,24 @@
 <div class="jumbotron"> 
   <h1 class="hash-topic topic-show"><strong><%= "##{@topic.title}" %></strong></h1>
   <% @bookmarks.each do |bookmark| %>
-  <%= content_tag :p, id: "bookmark-#{bookmark.topic_ids.join("")}" do %>
-     <%= link_to bookmark.title, bookmark.url %>
-      <% if current_user && current_user.bookmarks.include?(bookmark) %>
-        <%= link_to "Edit", edit_bookmark_path(bookmark),  class: 'edit-button'%> | 
-        <%= link_to "Delete", bookmark_path(bookmark), method: :delete, remote: true, class: 'delete-button', confirm: 'Are you sure you want to delete this bookmark' %>
-      <% end %>
+    <%= content_tag :div, class: "bookmark-#{bookmark.topic_ids.join("")}" do %>
+      <ul class="media-list">
+        <li class="media">
+          <a class="pull-left" href= "<%= bookmark.url %>">
+            <%= image_tag(bookmark.image_url, height: '75px', width: '75px', class: 'media-object thumbnail').html_safe %>
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><%= link_to bookmark.title, bookmark.url %></h4>
+              <% if current_user && current_user.bookmarks.include?(bookmark) %>
+                <%= link_to "Edit", edit_bookmark_path(bookmark),  class: 'edit-button edit-buton-topic-index'%> | 
+                <%= link_to "Delete", bookmark_path(bookmark), method: :delete, remote: true, class: 'delete-button', confirm: 'Are you sure you want to delete this bookmark' %>
+              <% end %>
+          </div>
+        </li>
+      </ul>
     <% end %>
   <% end %>
 </div>
+
+
+        

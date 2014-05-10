@@ -30,6 +30,12 @@ class BookmarksController < ApplicationController
         end
       end
 
+    #Get embedly image url
+    embedly_api = 
+      Embedly::API.new key: ENV['EMBEDLY_KEY'], :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; alexhawkins.me@gmail.com)'
+
+    @bookmark.image_url = embedly_api.oembed(url: @bookmark.url).first.thumbnail_url
+
     if @bookmark.save
         UserMailer.bookmark_created_email(current_user, @bookmark).deliver
         flash[:notice] = "Bookmark was saved."
@@ -51,6 +57,13 @@ class BookmarksController < ApplicationController
     #if the following below returns nil, it will set it to an empty array.
     params[:bookmark][:topic_ids] ||= []
     @bookmark = Bookmark.find(params[:id])
+
+     #Get embedly image url
+    embedly_api = 
+      Embedly::API.new key: ENV['EMBEDLY_KEY'], :user_agent => 'Mozilla/5.0 (compatible; mytestapp/1.0; alexhawkins.me@gmail.com)'
+
+    @bookmark.image_url = embedly_api.oembed(url: @bookmark.url).first.thumbnail_url
+    
     if @bookmark.update_attributes(bookmark_params)
       flash[:notice] = "Bookmark updated"
       #(redirect_to controller: 'topics', action: 'index')  is the same as below
@@ -64,6 +77,7 @@ class BookmarksController < ApplicationController
   def destroy 
     @bookmark = Bookmark.find(params[:id])
     @bookmark_ids = @bookmark.topic_ids.join("")
+    Rails.logger.info "Should remove bookmark-#{@bookmark_ids}"
     title = @bookmark.title
     if @bookmark.destroy
       #flash[:notice] = "\"#{title}\" was deleted successfully."
