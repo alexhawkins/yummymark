@@ -1,10 +1,15 @@
 class BookmarksController < ApplicationController
+  respond_to :html, :js
   
   def index
   end
 
   def new
     @bookmark = Bookmark.new
+  end
+
+  def show
+    @bookmark = Bookmark.find(params[:id])
   end
 
   def create
@@ -58,13 +63,19 @@ class BookmarksController < ApplicationController
 
   def destroy 
     @bookmark = Bookmark.find(params[:id])
+    @bookmark_ids = @bookmark.topic_ids.join("")
     title = @bookmark.title
     if @bookmark.destroy
-      flash[:notice] = "\"#{title}\" was deleted successfully."
-      redirect_to :back
+      #flash[:notice] = "\"#{title}\" was deleted successfully."
+      #redirect_to :back
     else
-      flash[:error] = "There was an error deleting the post."
-      redirect_to :back
+      #flash[:error] = "There was an error deleting the post."
+      #redirect_to :back
+    end
+    
+    respond_with(@bookmark) do |format|
+      format.html { redirect_to @bookmark }
+      format.js
     end
   end
 

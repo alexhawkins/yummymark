@@ -1,11 +1,12 @@
 <div class="jumbotron"> 
   <h1 class="hash-topic topic-show"><strong><%= "##{@topic.title}" %></strong></h1>
   <% @bookmarks.each do |bookmark| %>
-    <p><%= link_to bookmark.title, bookmark.url %>
+  <%= content_tag :p, id: "bookmark-#{bookmark.topic_ids.join("")}" do %>
+     <%= link_to bookmark.title, bookmark.url %>
       <% if current_user && current_user.bookmarks.include?(bookmark) %>
-        <%= link_to "Edit", edit_bookmark_path(bookmark),  class: 'label label-success'%> | 
-        <%= link_to "Delete", bookmark_path(bookmark), method: :delete, class: 'label label-danger' %>
+        <%= link_to "Edit", edit_bookmark_path(bookmark),  class: 'edit-button'%> | 
+         <%= link_to "Delete", bookmark_path(bookmark), method: :delete, remote: true, class: 'delete-button', confirm: 'Are you sure you want to delete this bookmark' %>
       <% end %>
-    </p>
+    <% end %>
   <% end %>
 </div>

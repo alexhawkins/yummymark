@@ -59,3 +59,34 @@ h1.topic-show{
   -webkit-border-radius: 40px;
   -moz-border-radius: 40px;
 }
+
+
+//EDIT BUTTONS
+
+.edit-button {
+  border: 2px solid $brand-primary;
+  padding: 4px 10px;
+  margin: 0 5px;
+  background-color: white;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+   &:hover {
+    background-color: #ccc;
+    text-decoration: none;
+  }
+}
+
+.delete-button {
+  border: 2px solid $brand-primary;
+  padding: 4px 10px;
+  margin: 0 5px;
+  background-color: #fff;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  &:hover {
+    background-color: #ccc;
+    text-decoration: none;
+  }
+}
